@@ -1,0 +1,204 @@
+  /*FUENTES*/
+  .shrikhand-regular {
+    font-family: "Shrikhand", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .montserrat-font {
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  /*ELEMENTOS*/
+  body {
+    background-color: #EEE5BF !important;
+  }
+  
+  a {
+    color: #000000 !important;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #2B2118 !important;
+    cursor: pointer;
+  }
+
+  section {
+    padding: 60px 20px;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+  }
+  
+  /*CLASES*/
+  /*TÍTULO*/
+  .titulo {
+    margin: 0;
+    text-align: center;
+    font-size: 2.5rem;
+    animation: scroll-title 2s ease-out;
+    position: relative; /* Necesario para posicionar imágenes decorativas */
+    padding: 20px;
+  }
+
+  .titulo-texto {
+    font-size: 3rem;
+    color: #333;
+    z-index: 1;
+    position: relative; /* Asegura que el texto quede por encima de las imágenes */
+  }
+
+    /* Imágenes decorativas */
+  .estrella {
+    position: absolute;
+    width: 70px; /* Tamaño de las imágenes decorativas */
+    height: auto;
+    opacity: 0.8; /* Ligera transparencia */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Animación para hover */
+  }
+
+    /* Imágenes específicas */
+  .estrella-1 {
+    top: -120px; /* Encima del título */
+    left: -10px; /* A la izquierda del título */
+    transform: rotate(-15deg); /* Levemente inclinada */
+  }
+
+  .estrella-2 {
+    top: 5px; /* A la derecha del título */
+    right: -10px;
+    transform: rotate(10deg);
+  }
+
+  .estrella-3 {
+    bottom: -5px; /* Debajo del título */
+    left: 10px;
+    transform: rotate(-10deg);
+  }
+
+  .estrella-4 {
+    top: -135px; /* A la derecha del título */
+    right: 15px;
+    transform: rotate(10deg);
+  }
+
+  .estrella-5 {
+    bottom: 65px; /* Debajo del título */
+    left: 60px;
+    transform: rotate(-10deg);
+  }
+
+  /*SUBTÍTULOS*/
+  .subtitulo {
+    color: #D496A7 !important;
+  }
+
+  /*MARGEN*/
+  .contenedor {
+    margin: 0 320 0 320;
+  }
+
+  .carrera-puesto {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }  
+
+  .content {
+    margin-top: 220px; /* Espacio suficiente para evitar superposición */
+    padding: 20px;
+  }
+
+  .anios {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    font-weight: bold;
+  }
+
+  /* Íconos */
+  .bi {
+    font-size: 40px;
+  }
+  .iconos {
+    margin: 0 195px;
+    text-align: center;
+    padding: 20px;
+  }
+  .bi:hover, .fa-brands:hover, .stack-img:hover {
+    color: #2B2118 !important;
+    transform: scale(1.05);
+  }
+  .btn-outline-secondary:hover {
+    color: #EEE5BF !important;
+    transform: scale(1.05);
+  }
+
+  .stack, .stack .bi{
+    font-size: 50px; /* Tamaño de las imágenes decorativas */
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    gap: 15px;
+  }
+  .stack img {
+    width: 50px;
+  }
+  
+  /* Fotos proyectos */
+  /* Center align the text within the three columns below the carousel */
+  .proyectos { 
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    box-sizing: border-box;
+  }
+
+  .proyectos .col-lg-4 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  /* rtl:begin:ignore */
+  .proyectos .col-lg-4 p {
+    margin-top: 0;
+    margin-right: .75rem;
+    margin-left: .75rem;
+  }
+  .row {
+    justify-content: space-evenly; /* Distribuye las columnas */
+  }
+
+  /* Botones */
+  .btn-outline-secondary {
+    --bs-btn-color: #4E3314 !important;
+    --bs-btn-border-color: #4E3314 !important;
+    --bs-btn-hover-color: #4E3314 !important;
+    --bs-btn-hover-bg: #4E3314 !important;
+    --bs-btn-hover-border-color: #4E3314 !important;
+  }
+
+  /*ANIMACIÓN*/
+  /* Título que se desplaza */
+  @keyframes scroll-title {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
