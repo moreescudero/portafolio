@@ -14,7 +14,9 @@
 
   /*ELEMENTOS*/
   body {
-    background-color: #EEE5BF !important;
+    background-color: #4E3314 !important;
+    color: #EEE5BF !important;
+    /*background-color: #EEE5BF !important;*/
   }
   
   a {
@@ -48,7 +50,7 @@
 
   .titulo-texto {
     font-size: 3rem;
-    color: #333;
+    color: #EEE5BF !important;
     z-index: 1;
     position: relative; /* Asegura que el texto quede por encima de las imágenes */
   }
@@ -56,10 +58,12 @@
     /* Imágenes decorativas */
   .estrella {
     position: absolute;
+    color: #000;
     width: 70px; /* Tamaño de las imágenes decorativas */
     height: auto;
     opacity: 0.8; /* Ligera transparencia */
     transition: transform 0.3s ease, opacity 0.3s ease; /* Animación para hover */
+    filter: invert(85%) sepia(10%) saturate(500%) hue-rotate(10deg);
   }
 
     /* Imágenes específicas */
@@ -94,9 +98,9 @@
   }
 
   /*SUBTÍTULOS*/
-  .subtitulo {
+  /* .subtitulo {
     color: #D496A7 !important;
-  }
+  } */
 
   /*MARGEN*/
   .contenedor {
@@ -133,16 +137,23 @@
   /* Íconos */
   .bi {
     font-size: 40px;
+    color: #EEE5BF !important;
   }
   .iconos {
     margin: 0 195px;
     text-align: center;
     padding: 20px;
   }
-  .bi:hover, .fa-brands:hover, .stack-img:hover {
-    color: #2B2118 !important;
+  .icono-hover {
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out !important;
+    cursor: pointer;
+  }
+
+  .bi:hover, .fa-brands:hover, .stack-img:hover, .icono-hover:hover{
+    color: #EEE5BF !important;
     transform: scale(1.05);
   }
+
   .btn-outline-secondary:hover {
     color: #EEE5BF !important;
     transform: scale(1.05);
@@ -157,6 +168,7 @@
   }
   .stack img {
     width: 50px;
+    filter: invert(85%) sepia(10%) saturate(500%) hue-rotate(10deg);
   }
   
   /* Fotos proyectos */
@@ -183,14 +195,15 @@
 
   /* Botones */
   .btn-outline-secondary {
-    --bs-btn-color: #4E3314 !important;
-    --bs-btn-border-color: #4E3314 !important;
-    --bs-btn-hover-color: #4E3314 !important;
-    --bs-btn-hover-bg: #4E3314 !important;
-    --bs-btn-hover-border-color: #4E3314 !important;
+    --bs-btn-color: #D496A7 !important;
+    --bs-btn-border-color: #D496A7 !important;
+    --bs-btn-hover-color: #D496A7 !important;
+    --bs-btn-hover-bg: #D496A7 !important;
+    --bs-btn-hover-border-color: #D496A7 !important;
+    color: #EEE5BF !important;
   }
 
-  /*ANIMACIÓN*/
+  /* Animaciones */
   /* Título que se desplaza */
   @keyframes scroll-title {
     from {
@@ -201,4 +214,4 @@
       transform: translateY(0);
       opacity: 1;
     }
-  }
+  } 
