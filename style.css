@@ -36,6 +36,13 @@
     font-family: 'Roboto', sans-serif;
     font-size: medium;
   }
+
+  footer {
+    background-color: #D496A7;
+    margin: 0 auto !important;
+    width: 100% !important;
+    position: absolute !important;
+  }
   
   /*CLASES*/
   /*TÍTULO*/
@@ -139,12 +146,14 @@
     color: #EEE5BF !important;
   }
   .iconos {
-    margin: 0 195px;
-    text-align: center;
+    margin-left: 42%;
     padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    text-align: center;
   }
   .icono-hover {
-    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out !important;
     cursor: pointer;
   }
 
@@ -200,6 +209,33 @@
     --bs-btn-hover-bg: #D496A7 !important;
     --bs-btn-hover-border-color: #D496A7 !important;
     color: #EEE5BF !important;
+  }
+
+  /* Slider certificados */
+  .carousel-card {
+    color: #EEE5BF;
+    height: 300px;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(238, 229, 191, 0.5);
+  }
+
+  .certificado-image {
+    width: 325px;
+    height: 100%;
+    margin-bottom: 40px;
+    border: 2px solid #EEE5BF;
+    padding: 4px;
+  }
+
+  .finalizacion {
+    font-size: 1.15rem;
+    font-weight: 500;
   }
 
   /* Imagenes */
