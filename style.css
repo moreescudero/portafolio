@@ -28,10 +28,6 @@
     cursor: pointer;
   }
 
-  section {
-    padding: 60px 20px;
-  }
-
   p {
     font-family: 'Roboto', sans-serif;
     font-size: medium;
@@ -52,7 +48,7 @@
     font-size: 2.5rem;
     animation: scroll-title 2s ease-out;
     position: relative; /* Necesario para posicionar imágenes decorativas */
-    padding: 20px;
+    padding: 2%;
   }
 
   .titulo-texto {
@@ -110,7 +106,7 @@
 
   /*MARGEN*/
   .contenedor {
-    margin: 0 320 0 320;
+    margin: 0 20% 0 20%;
   }
 
   .carrera-puesto {
