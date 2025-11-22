@@ -24,7 +24,7 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        violet: { 450: '#8b5cf6' }, // Custom violet approximation
+                        violet: { 450: '#8b5cf6' },
                     }
                 }
             }
@@ -44,11 +44,6 @@
         .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
         }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
         /* Scrollbar personalizada */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
@@ -57,6 +52,14 @@
         
         /* Utilidades para ocultar/mostrar secciones */
         .hidden-mode { display: none !important; }
+
+        /* Cursor parpadeante terminal */
+        .blinking-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body class="selection:bg-violet-500/30 selection:text-violet-200">
@@ -95,9 +98,7 @@
                 
                 <!-- GATITO NEGRO SVG CON GLOBITO ARREGLADO -->
                 <div class="mb-6 pl-2 animate-fade-in-up">
-                   <!-- Aumenté el viewBox verticalmente (140 130) para dar espacio arriba -->
                    <svg width="140" height="130" viewBox="0 0 140 130" class="hover:scale-110 transition-transform cursor-pointer" title="Soy el guardián del código">
-                        <!-- Bajé al gato (translate 10, 40) para dejar espacio libre arriba -->
                         <g transform="translate(10, 40)">
                             <!-- Cuerpo/Cabeza -->
                             <path d="M50 85 C 20 85, 10 60, 15 40 C 18 25, 30 15, 50 15 C 70 15, 82 25, 85 40 C 90 60, 80 85, 50 85 Z" fill="#0f172a" stroke="#4c1d95" stroke-width="2" />
@@ -121,10 +122,8 @@
                             <line x1="75" y1="60" x2="95" y2="55" stroke="#64748b" stroke-width="1" />
                             <line x1="75" y1="65" x2="95" y2="68" stroke="#64748b" stroke-width="1" />
 
-                            <!-- Globito de diálogo (Levantado) -->
-                            <!-- El globo ahora flota sobre la cabeza sin tocar las orejas -->
+                            <!-- Globito -->
                             <path d="M90 -15 Q 125 -15 125 0 Q 125 15 90 15 Q 85 15 75 25 L 80 15 Q 65 15 65 0 Q 65 -15 90 -15 Z" fill="white" stroke="#cbd5e1" stroke-width="1" opacity="0.9" />
-                            <!-- Texto dentro del globo (Ajustado) -->
                             <text x="95" y="4" font-family="monospace" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">holi, miau</text>
                         </g>
                     </svg>
@@ -148,8 +147,7 @@
                     <a href="https://github.com/moreescudero" target="_blank" rel="noreferrer" class="px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-2">
                         <i data-lucide="github" class="w-5 h-5"></i> GitHub
                     </a>
-                    <!-- IMPORTANTE: Asegúrate de que tu archivo PDF se llame exactamente "CV-Morena-Escudero.pdf" y esté en la misma carpeta -->
-                    <a href="./assets/Morena Escudero CV.pdf" download="CV-Morena-Escudero.pdf" class="px-6 py-3 bg-slate-800 text-white border border-slate-700 font-medium rounded-lg hover:bg-slate-700 hover:border-violet-500 transition-colors flex items-center gap-2">
+                    <a href="./CV- Morena Escudero.pdf" download="CV-Morena-Escudero.pdf" class="px-6 py-3 bg-slate-800 text-white border border-slate-700 font-medium rounded-lg hover:bg-slate-700 hover:border-violet-500 transition-colors flex items-center gap-2">
                         <i data-lucide="download" class="w-5 h-5"></i> Descargar CV
                     </a>
                 </div>
@@ -364,65 +362,34 @@
         </footer>
     </div>
 
-    <!-- ==================== MODO TERMINAL (OCULTO POR DEFECTO) ==================== -->
-    <div id="terminal-mode" class="hidden-mode min-h-screen bg-black text-green-500 font-mono p-6 overflow-hidden relative selection:bg-green-900 selection:text-white">
+    <!-- ==================== MODO TERMINAL ==================== -->
+    <div id="terminal-mode" class="hidden-mode min-h-screen bg-black text-green-500 font-mono p-6 overflow-hidden relative selection:bg-green-900 selection:text-white flex flex-col">
         <div class="fixed top-4 right-4 z-50">
             <button onclick="toggleMode()" class="border border-green-500 px-4 py-2 hover:bg-green-900 transition-colors flex items-center gap-2 text-sm uppercase tracking-wider bg-black text-green-500 cursor-pointer">
                 <i data-lucide="monitor" class="w-4 h-4"></i> GUI MODE
             </button>
         </div>
 
-        <div class="max-w-4xl mx-auto mt-10 space-y-8 pb-20">
+        <div class="max-w-4xl mx-auto mt-10 w-full pb-20 flex-grow flex flex-col">
+            <!-- Header Terminal -->
             <div class="border-b border-green-800 pb-4 mb-8">
                 <h1 class="text-4xl md:text-6xl font-bold mb-2">MORENA_ESCUDERO</h1>
                 <p class="opacity-80">&gt;&gt; Backend Developer | .NET Specialist | SQL Architect</p>
             </div>
 
-            <div class="space-y-2 mb-12 text-sm opacity-70" id="terminal-output">
+            <!-- Salida de la Terminal -->
+            <div id="terminal-output" class="space-y-2 mb-4 text-sm opacity-90 font-mono overflow-y-auto flex-grow" style="min-height: 300px;">
                 <p>&gt; Initializing system...</p>
                 <p>&gt; Loading profile: Morena Escudero</p>
                 <p>&gt; Accessing backend skills...</p>
                 <p>&gt; Status: READY</p>
-                <p class="animate-pulse">_</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- JSON Resume -->
-                <div class="border border-green-800 p-4 relative group">
-                    <div class="absolute -top-3 left-4 bg-black px-2 text-green-400 text-xs uppercase">Experience.json</div>
-                    <pre class="text-xs md:text-sm overflow-x-auto whitespace-pre-wrap text-green-400">
-{
-  "company": "Montagne Outdoors S.A.",
-  "role": "Desarrolladora .NET",
-  "stack": [".NET 8.0", "MVC", "SQL Server"],
-  "status": "Active"
-}
-                    </pre>
-                </div>
-                <!-- Skills Array -->
-                <div class="border border-green-800 p-4 relative">
-                     <div class="absolute -top-3 left-4 bg-black px-2 text-green-400 text-xs uppercase">Skills.arr</div>
-                     <div class="grid grid-cols-2 gap-2 mt-2 text-sm" id="terminal-skills">
-                         <!-- Se llenan con JS -->
-                     </div>
-                </div>
-            </div>
-
-            <div class="mt-12">
-                <div class="flex items-center gap-2 text-xl mb-4">
-                    <span class="text-pink-500">root@portfolio:~$</span>
-                    <span>ls ./projects</span>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-green-300">
-                    <div class="border-l-2 border-green-600 pl-4 py-2 hover:bg-green-900/20 transition-colors">
-                        <h3 class="font-bold">Alta_en_el_cielo.exe</h3>
-                        <p class="text-xs opacity-70">Desktop App // C# .NET</p>
-                    </div>
-                    <div class="border-l-2 border-green-600 pl-4 py-2 hover:bg-green-900/20 transition-colors">
-                        <h3 class="font-bold">Sale_un_truquito.game</h3>
-                        <p class="text-xs opacity-70">Simulation // SQL Server</p>
-                    </div>
-                </div>
+            <!-- Input Area -->
+            <div class="flex items-center text-green-500 font-mono text-sm mt-2 border-t border-green-900 pt-4">
+                <span class="mr-2">root@portfolio:~$</span>
+                <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-green-500 font-mono placeholder-green-700" placeholder="Type 'help' to see commands..." autocomplete="off" autofocus>
+                <span class="blinking-cursor ml-1">_</span>
             </div>
         </div>
     </div>
@@ -440,12 +407,13 @@
             { name: ".NET Core / 8.0", icon: "cpu" },
             { name: "C#", icon: "code-2" },
             { name: "VB.NET", icon: "layers" },
+            { name: "React", icon: "layout-template" },
             { name: "Python", icon: "terminal" },
             { name: "C", icon: "code-2" },
             { name: "SQL Server", icon: "database" },
             { name: "ASP.NET MVC", icon: "layout-template" },
-            { name: "Entity Framework", icon: "server" },
             { name: "JAVA", icon: "code-2" },
+            { name: "Entity Framework", icon: "server" },
             { name: "Clean Architecture", icon: "command" },
             { name: "SOLID Principles", icon: "file-text" },
             { name: "JavaScript", icon: "code-2" }
@@ -453,23 +421,14 @@
 
         // Renderizar Skills en GUI
         const skillsContainer = document.getElementById('skills-container');
-        const terminalSkillsContainer = document.getElementById('terminal-skills');
-
         skills.forEach(skill => {
-            // GUI
             const div = document.createElement('div');
             div.className = 'flex items-center gap-2 px-4 py-2 bg-slate-950 border border-slate-800 rounded-md text-slate-300 hover:border-violet-500/50 hover:text-violet-400 transition-all cursor-default group';
             div.innerHTML = `<i data-lucide="${skill.icon}" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> <span class="font-medium text-sm">${skill.name}</span>`;
             skillsContainer.appendChild(div);
-
-            // Terminal
-            const termDiv = document.createElement('div');
-            termDiv.className = 'flex items-center gap-2';
-            termDiv.innerHTML = `<span>[x]</span> ${skill.name}`;
-            terminalSkillsContainer.appendChild(termDiv);
         });
 
-        // Re-inicializar iconos después de agregar elementos dinámicos
+        // Re-inicializar iconos
         lucide.createIcons();
 
         // Navbar Scroll Effect
@@ -484,6 +443,85 @@
             }
         });
 
+        // --- LOGICA DE LA TERMINAL ---
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+
+        const fileSystem = {
+            'about.txt': 'Backend Developer apasionada por .NET, C# y arquitecturas limpias. Estudiante en UADE y UTN.',
+            'skills.json': JSON.stringify(skills.map(s => s.name), null, 2),
+            'experience.txt': 'Montagne Outdoors S.A.: Desarrolladora .NET (2023-Presente). Clean Architecture, SQL Server, MVC.',
+            'projects.list': '1. Alta en el cielo (Desktop App) \n2. Sale un truquito (Game Simulation)',
+            'contact.txt': 'Email: escuderomore1@gmail.com \nGitHub: github.com/moreescudero'
+        };
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim();
+                const parts = input.split(' ');
+                const command = parts[0].toLowerCase();
+                const arg = parts[1];
+
+                // Escribir el comando del usuario en el output
+                writeLine(`root@portfolio:~$ ${input}`, 'text-pink-500');
+
+                // Procesar comandos
+                switch (command) {
+                    case 'help':
+                        writeLine('Available commands:');
+                        writeLine('  help       - Show this help message');
+                        writeLine('  ls         - List files and projects');
+                        writeLine('  cat [file] - Read a file');
+                        writeLine('  clear      - Clear terminal screen');
+                        writeLine('  exit       - Return to GUI mode');
+                        writeLine('  miau       - ???');
+                        break;
+                    case 'ls':
+                        writeLine('Files:', 'text-blue-400');
+                        Object.keys(fileSystem).forEach(file => {
+                            writeLine(`  ${file}`);
+                        });
+                        break;
+                    case 'cat':
+                        if (arg && fileSystem[arg]) {
+                            writeLine(fileSystem[arg], 'text-green-300 whitespace-pre-wrap');
+                        } else if (arg) {
+                            writeLine(`cat: ${arg}: No such file or directory`, 'text-red-400');
+                        } else {
+                            writeLine('Usage: cat [filename]');
+                        }
+                        break;
+                    case 'clear':
+                        terminalOutput.innerHTML = '';
+                        break;
+                    case 'exit':
+                        writeLine('Exiting terminal mode...', 'text-yellow-400');
+                        setTimeout(toggleMode, 800);
+                        break;
+                    case 'miau':
+                        writeLine('  /\\_/\\  ', 'text-purple-400');
+                        writeLine(' ( o.o )  < Holi, soy un gatito de terminal!', 'text-purple-400');
+                        writeLine('  > ^ <   ', 'text-purple-400');
+                        break;
+                    case '':
+                        break;
+                    default:
+                        writeLine(`Command not found: ${command}. Type 'help' for a list of commands.`, 'text-red-400');
+                }
+
+                this.value = '';
+                // Scroll al fondo
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        function writeLine(text, className = '') {
+            const p = document.createElement('p');
+            p.className = className;
+            p.innerText = text;
+            terminalOutput.appendChild(p);
+        }
+
         // Toggle Mode Logic
         function toggleMode() {
             const gui = document.getElementById('gui-mode');
@@ -495,19 +533,19 @@
                 gui.classList.add('hidden-mode');
                 window.scrollTo(0,0);
                 
-                // Simular log typing
-                const output = document.getElementById('terminal-output');
-                setTimeout(() => {
-                    const p = document.createElement('p');
-                    p.innerText = "> GUI Mode terminated. Welcome to the shell.";
-                    output.insertBefore(p, output.lastElementChild);
-                }, 800);
+                // Focus input
+                setTimeout(() => terminalInput.focus(), 100);
             } else {
                 // Switch to GUI
                 gui.classList.remove('hidden-mode');
                 terminal.classList.add('hidden-mode');
             }
         }
+
+        // Mantener focus en la terminal al hacer click
+        document.getElementById('terminal-mode').addEventListener('click', () => {
+            terminalInput.focus();
+        });
     </script>
 </body>
 </html>
