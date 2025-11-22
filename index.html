@@ -1,237 +1,512 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/favicon.ico?v1" sizes="any" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Morena Escudero | Backend Developer</title>
+    
+    <!-- Tailwind CSS (Diseño) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (Iconos) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    <!-- Configuración de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        violet: { 450: '#8b5cf6' }, // Custom violet approximation
+                    }
+                }
+            }
+        }
+    </script>
 
-    <title>Portafolio</title>
+    <style>
+        body {
+            background-color: #020617; /* Slate 950 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        /* Utilidades para ocultar/mostrar secciones */
+        .hidden-mode { display: none !important; }
+    </style>
 </head>
-<body>
-    <!-- PRESENTACIÓN -->
-    <div class="titulo shrikhand-regular mt-4">
-        <div class="titulo-texto">
-            <h1>Morena Escudero</h1>
-            <div class="row mt-2">
-                <div class="col-md-2"></div>
-                <div class="col-md-4"><h2>Desarrolladora</h2></div>
-                <div class="col-md-4"><h2>Buenos Aires, Argentina</h2></div>
-                <div class="col-md-2"></div>
-            </div>
-        </div>
-        <div class="titulo">
-            <img src="https://cdn-icons-png.flaticon.com/128/15860/15860418.png" class="estrella estrella-1">
-            <img src="https://cdn-icons-png.flaticon.com/128/15818/15818548.png" class="estrella estrella-2">  
-            <img src="https://cdn-icons-png.flaticon.com/128/15860/15860381.png" class="estrella estrella-3">
-            <img src="https://cdn-icons-png.flaticon.com/128/15860/15860381.png" class="estrella estrella-4">
-            <img src="https://cdn-icons-png.flaticon.com/128/17280/17280516.png" class="estrella estrella-5">
-        </div>  
-    </div>
-    <div class="contenedor">
-        <!-- SOBRE MÍ -->
-        <div >
-            <h3 class="fw-normal shrikhand-regular subtitulo mt-5">Sobre mí</h3>
-            <div class="row align-items-center mt-3">
-                <div class="col-md-5">
-                    <img src="./assets/IMG_4831.jpg" class="rounded-circle img-fluid" width="200" alt="Foto de perfil">
-                </div>
-                <div class="col-md-7 text-end  montserrat-font presentacion">
-                    <p>Tengo 23 años y comencé a programar desde el 2022. Apasionada por el desarrollo web. Me encanta aprender nuevas tecnologías y mejorar la experiencia de usuario.
-                    <br>Especializada en .NET, SQL Server y Razor con Bootstrap.
-                    <br>Siempre en busca de nuevos desafíos.</p>
-                    <p><a class="btn btn-outline-secondary" href="./assets/CV- Morena Escudero.pdf" download>Descargar CV</a></p>
-                </div>
-            </div>
-        </div>
+<body class="selection:bg-violet-500/30 selection:text-violet-200">
 
-        <!-- EXPERIENCIA LABORAL -->
-        <div >
-            <h3 class="fw-normal shrikhand-regular mt-5 subtitulo">Experiencia laboral</h3>
-            <div class="mt-3">
-                <h4 class="carrera-puesto"> Desarrolladora .NET</h4>
-                <div class="montserrat-font anios" style="margin-top: -10px; ">
-                    <small>2023 - Actualidad</small>
-                    <small>Montagne Outdoors S.A.</small>
+    <!-- ==================== MODO GUI (VISUAL) ==================== -->
+    <div id="gui-mode">
+        
+        <!-- Navegación -->
+        <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 bg-transparent">
+            <div class="container mx-auto px-6 flex justify-between items-center">
+                <div class="font-bold text-xl tracking-tighter flex items-center gap-2 select-none">
+                    <span class="text-violet-500">{</span>
+                    <span>ME</span>
+                    <span class="text-violet-500">}</span>
                 </div>
-                <div>
-                    <p>Participé en varios proyectos desarrollando y manteniendo una aplicación de escritorio interna de la empresa orientada a trabajos textiles, de ventas y administrativos. Trabajando en un entorno de VB.NET con Entity Framework y SQL Server para la base de datos con la creación y manejo de tablas y procedimientos almacenados.
-                    <br>Proyecto de aplicación web de Recursos Humanos con módulos de encuestas, consultas y diversas entrevistas.
-                    <br>Metodologías Agile (SCRUM)</p>
+                
+                <div class="flex items-center gap-4">
+                    <a href="mailto:escuderomore1@gmail.com" class="hidden md:block text-sm font-medium hover:text-violet-400 transition-colors">
+                        Contáctame
+                    </a>
+                    <button onclick="toggleMode()" class="flex items-center gap-2 bg-slate-900 hover:bg-black border border-slate-700 hover:border-violet-500 transition-all px-4 py-2 rounded-full text-xs font-mono tracking-wide hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] cursor-pointer group">
+                        <i data-lucide="terminal" class="w-3 h-3 text-violet-500 group-hover:text-violet-400"></i>
+                        DEV_MODE
+                    </button>
                 </div>
-                <div class="stack mt-3">
-                    <img src="https://cdn-icons-png.flaticon.com/128/11229/11229136.png" title="C#" class="stack-img">
-                    <img src="https://cdn-icons-png.flaticon.com/128/29/29609.png" title="VB .NET" class="stack-img">
-                    <i class="bi bi-filetype-sql" title="SQL Server"></i>
-                    <i class="fa-brands fa-html5" title="HTML 5"></i>
-                    <i class="fa-brands fa-css3-alt" title="CSS 3"></i>
-                    <i class="fa-brands fa-js" title="Javascript"></i>
-                    <i class="fa-brands fa-bootstrap" title="Bootstrap"></i>
+            </div>
+        </nav>
 
-                </div>
-            </div>
-        </div>
-        <!-- ESTUDIOS -->
-        <div >
-            <h3 class="fw-normal shrikhand-regular mt-5 subtitulo">Educación</h3>
-            <div class="mt-3">
-                <h4 class="carrera-puesto">Licenciatura en Gestión de Tecnologías de la Información</h4>
-                <div class="montserrat-font anios" style="margin-top: -10px;">
-                    <small>2025 - Actualidad</small>
-                    <small>UADE</small>
-                </div>
-                <p>Ocho materias aprobadas por equivalencias</p>
-            </div>
-            <div>
-                <h4 class="carrera-puesto">Tecnicatura Universitaria en Programación</h4>
-                <div class="montserrat-font anios" style="margin-top: -10px;">
-                    <small>2022 - 2024</small>
-                    <small>UTN</small>
-                </div>
-                <p>91% de la carrera aprobada
-                <br>Aprendí diversos lenguajes como C, desarrollo C# .NET con SQL Server y desarrollo web con HTML, CSS y Javascript
-                <br>Promedio general: 7,89</p>
-            </div>
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+            <!-- Background Blobs -->
+            <div class="absolute top-20 right-0 -z-10 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 -z-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
 
-            <!-- CURSOS -->
-            <h3 class="fw-normal shrikhand-regular mt-5 subtitulo">Cursos</h3>
+            <div class="container mx-auto max-w-5xl">
+                
+                <!-- GATITO NEGRO SVG CON GLOBITO ARREGLADO -->
+                <div class="mb-6 pl-2 animate-fade-in-up">
+                   <!-- Aumenté el viewBox verticalmente (140 130) para dar espacio arriba -->
+                   <svg width="140" height="130" viewBox="0 0 140 130" class="hover:scale-110 transition-transform cursor-pointer" title="Soy el guardián del código">
+                        <!-- Bajé al gato (translate 10, 40) para dejar espacio libre arriba -->
+                        <g transform="translate(10, 40)">
+                            <!-- Cuerpo/Cabeza -->
+                            <path d="M50 85 C 20 85, 10 60, 15 40 C 18 25, 30 15, 50 15 C 70 15, 82 25, 85 40 C 90 60, 80 85, 50 85 Z" fill="#0f172a" stroke="#4c1d95" stroke-width="2" />
+                            <!-- Orejas -->
+                            <path d="M25 25 L 15 5 L 45 20 Z" fill="#0f172a" stroke="#4c1d95" stroke-width="2" />
+                            <path d="M75 25 L 85 5 L 55 20 Z" fill="#0f172a" stroke="#4c1d95" stroke-width="2" />
+                            <!-- Ojos -->
+                            <ellipse cx="35" cy="45" rx="8" ry="10" fill="#fbbf24" />
+                            <ellipse cx="35" cy="45" rx="2" ry="6" fill="black" />
+                            <circle cx="38" cy="42" r="2" fill="white" opacity="0.6" />
+                            <ellipse cx="65" cy="45" rx="8" ry="10" fill="#fbbf24" />
+                            <ellipse cx="65" cy="45" rx="2" ry="6" fill="black" />
+                            <circle cx="68" cy="42" r="2" fill="white" opacity="0.6" />
+                            <!-- Nariz y Boca -->
+                            <path d="M47 58 L 53 58 L 50 62 Z" fill="#f472b6" />
+                            <path d="M50 62 Q 45 68 40 65" fill="none" stroke="#cbd5e1" stroke-width="1.5" />
+                            <path d="M50 62 Q 55 68 60 65" fill="none" stroke="#cbd5e1" stroke-width="1.5" />
+                            <!-- Bigotes -->
+                            <line x1="25" y1="60" x2="5" y2="55" stroke="#64748b" stroke-width="1" />
+                            <line x1="25" y1="65" x2="5" y2="68" stroke="#64748b" stroke-width="1" />
+                            <line x1="75" y1="60" x2="95" y2="55" stroke="#64748b" stroke-width="1" />
+                            <line x1="75" y1="65" x2="95" y2="68" stroke="#64748b" stroke-width="1" />
+
+                            <!-- Globito de diálogo (Levantado) -->
+                            <!-- El globo ahora flota sobre la cabeza sin tocar las orejas -->
+                            <path d="M90 -15 Q 125 -15 125 0 Q 125 15 90 15 Q 85 15 75 25 L 80 15 Q 65 15 65 0 Q 65 -15 90 -15 Z" fill="white" stroke="#cbd5e1" stroke-width="1" opacity="0.9" />
+                            <!-- Texto dentro del globo (Ajustado) -->
+                            <text x="95" y="4" font-family="monospace" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">holi, miau</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="inline-block mb-4 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-mono animate-fade-in-up" style="animation-delay: 0.1s;">
+                    Backend Developer .NET
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
+                    Arquitectura limpia para <br class="hidden md:block" />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">
+                        soluciones complejas.
+                    </span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Soy <strong class="text-white">Morena Escudero</strong>. Especialista en construir el motor que impulsa las aplicaciones. 
+                    Enfocada en .NET, SQL Server y arquitecturas escalables.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <a href="https://github.com/moreescudero" target="_blank" rel="noreferrer" class="px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-2">
+                        <i data-lucide="github" class="w-5 h-5"></i> GitHub
+                    </a>
+                    <!-- IMPORTANTE: Asegúrate de que tu archivo PDF se llame exactamente "CV-Morena-Escudero.pdf" y esté en la misma carpeta -->
+                    <a href="./CV- Morena Escudero.pdf" download="CV-Morena-Escudero.pdf" class="px-6 py-3 bg-slate-800 text-white border border-slate-700 font-medium rounded-lg hover:bg-slate-700 hover:border-violet-500 transition-colors flex items-center gap-2">
+                        <i data-lucide="download" class="w-5 h-5"></i> Descargar CV
+                    </a>
+                </div>
+            </div>
             
-            <div id="slider" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active text-center">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D22AQHYKSSDeJ1eZQ/feedshare-shrink_1280/B4DZYn6j3QHwAk-/0/1744426385094?e=1747267200&v=beta&t=6hsuX_kprV1dwN0WYuuQwIWC4oC2nvNe0BgIlfCET1Q" class="d-block mx-auto mt-4" height="350">
-                        <h4 class="carrera-puesto mt-2">Fundamentos de la programación: API y servicios web</h4>
-                        <div class="montserrat-font" style="margin-top: -5px;">
-                            <small>Abril 2025</small>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-500">
+                <i data-lucide="chevron-down" class="w-6 h-6"></i>
+            </div>
+        </section>
+
+        <!-- Skills Marquee -->
+        <section class="py-10 border-y border-white/5 bg-slate-900/30">
+            <div class="container mx-auto px-6">
+                <p class="text-center text-sm text-slate-500 mb-8 font-mono uppercase tracking-widest">Tecnologías & Herramientas</p>
+                <div class="flex flex-wrap justify-center gap-4 md:gap-8" id="skills-container">
+                    <!-- Skills inyectados por JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Experiencia y Educación -->
+        <section class="py-24 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="grid md:grid-cols-2 gap-16">
+                    
+                    <!-- Experiencia -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                            <i data-lucide="briefcase" class="text-violet-500"></i> Experiencia
+                        </h2>
+                        <div class="space-y-10 border-l border-slate-800 ml-3 pl-8 relative">
+                            <!-- Item Experiencia 1 -->
+                            <div class="relative">
+                                <span class="absolute -left-[39px] top-1 h-5 w-5 rounded-full bg-slate-950 border-2 border-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.5)]"></span>
+                                <div class="mb-2">
+                                    <h3 class="text-xl font-bold text-white">Desarrolladora .NET</h3>
+                                    <div class="flex justify-between items-center mt-1">
+                                        <p class="text-violet-400 font-medium">Montagne Outdoors S.A.</p>
+                                        <span class="text-xs text-slate-500 font-mono bg-slate-900 px-2 py-1 rounded">Marzo 2023 - Actualidad</span>
+                                    </div>
+                                </div>
+                                <p class="text-slate-400 mb-4 text-sm leading-relaxed">Desarrollo de aplicaciones web con .NET 8.0 (MVC) y mantenimiento de sistemas legacy.</p>
+                                <ul class="space-y-2 text-sm text-slate-300">
+                                    <li class="flex items-start gap-2"><span class="text-violet-500 mt-1.5 text-[10px]">●</span> Implementación de Clean Architecture y principios SOLID.</li>
+                                    <li class="flex items-start gap-2"><span class="text-violet-500 mt-1.5 text-[10px]">●</span> Desarrollo de backend separando capas (Application, Domain, Infrastructure, API).</li>
+                                    <li class="flex items-start gap-2"><span class="text-violet-500 mt-1.5 text-[10px]">●</span> Optimización de consultas SQL y diseño de bases de datos.</li>
+                                    <li class="flex items-start gap-2"><span class="text-violet-500 mt-1.5 text-[10px]">●</span> Participación en sprints bajo metodología Scrum.</li>
+                                </ul>
+                            </div>
                         </div>
-                        <p><a class="btn btn-outline-secondary mt-2" href="https://media.licdn.com/dms/image/v2/D4D22AQHYKSSDeJ1eZQ/feedshare-shrink_1280/B4DZYn6j3QHwAk-/0/1744426385094?e=1747267200&v=beta&t=6hsuX_kprV1dwN0WYuuQwIWC4oC2nvNe0BgIlfCET1Q" target="_blank">Visualizar certificado</a></p>
                     </div>
-                    <div class="carousel-item text-center">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D22AQEhNvQtXrcU6Q/feedshare-shrink_1280/B4DZUo.1HQG8Ak-/0/1740149314393?e=1746057600&v=beta&t=qgx8SifPTDP58aGV2vH8KWFjdpYucOOEiw0EHfvN-lI" class="d-block mx-auto mt-4" height="350">
-                        <h4 class="carrera-puesto mt-2">React esencial</h4>
-                        <div class="montserrat-font" style="margin-top: -5px;">
-                            <small>Febrero 2025</small>
+
+                    <!-- Educación -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                            <i data-lucide="graduation-cap" class="text-fuchsia-500"></i> Formación
+                        </h2>
+                        <div class="space-y-6">
+                            <!-- Item Educación 1 -->
+                            <div class="group p-6 bg-slate-900/40 border border-slate-800 rounded-xl hover:bg-slate-800/40 transition-colors">
+                                <h3 class="text-lg font-bold text-white group-hover:text-fuchsia-400 transition-colors">Licenciatura en Gestión de Tecnologías de la Información</h3>
+                                <p class="text-slate-400 mb-2">UADE</p>
+                                <div class="flex items-center justify-between mt-4 border-t border-slate-800 pt-4">
+                                    <span class="text-xs font-mono text-slate-500">2025 - Actualidad</span>
+                                    <span class="text-xs font-medium text-fuchsia-300 bg-fuchsia-500/10 px-2 py-1 rounded-full">15 materias aprobadas | En curso</span>
+                                </div>
+                            </div>
+                            <!-- Item Educación 2 -->
+                            <div class="group p-6 bg-slate-900/40 border border-slate-800 rounded-xl hover:bg-slate-800/40 transition-colors">
+                                <h3 class="text-lg font-bold text-white group-hover:text-fuchsia-400 transition-colors">Tecnicatura Universitaria en Programación</h3>
+                                <p class="text-slate-400 mb-2">UTN</p>
+                                <div class="flex items-center justify-between mt-4 border-t border-slate-800 pt-4">
+                                    <span class="text-xs font-mono text-slate-500">2022 - 2024</span>
+                                    <span class="text-xs font-medium text-fuchsia-300 bg-fuchsia-500/10 px-2 py-1 rounded-full">91% completado | Promedio: 7.89</span>
+                                </div>
+                            </div>
                         </div>
-                        <p><a class="btn btn-outline-secondary mt-2" href="https://media.licdn.com/dms/image/v2/D4D22AQEhNvQtXrcU6Q/feedshare-shrink_1280/B4DZUo.1HQG8Ak-/0/1740149314393?e=1746057600&v=beta&t=qgx8SifPTDP58aGV2vH8KWFjdpYucOOEiw0EHfvN-lI" target="_blank">Visualizar certificado</a></p>
+
+                        <!-- Info Card -->
+                        <div class="mt-10 p-6 bg-gradient-to-br from-violet-900/20 to-slate-900 border border-violet-500/20 rounded-xl">
+                            <h3 class="text-white font-bold mb-4">Enfoque Actual</h3>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                Actualmente profundizando en <span class="text-violet-300">Arquitecturas de Microservicios</span> y finalizando mi licenciatura. Siempre buscando optimizar el rendimiento de bases de datos y escribir código limpio y mantenible.
+                            </p>
+                        </div>
                     </div>
-                    <div class="carousel-item text-center">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D22AQHLgoBPmQ8DOA/feedshare-shrink_1280/B4DZTrYH08HIAk-/0/1739115757126?e=1746057600&v=beta&t=5nbHAEl6EVSwM1I1RnUpsPcUbqSlBXB920S9IYblWYo" class="d-block mx-auto mt-4" height="350">
-                        <h4 class="carrera-puesto mt-2">Integración HTML y CSS esencial</h4>
-                        <div class="montserrat-font" style="margin-top: -5px;">
-                            <small>Febrero 2025</small>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Cursos Section -->
+        <section class="py-10 px-6 border-t border-slate-900 bg-slate-900/20">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                    <i data-lucide="book-open" class="text-emerald-500"></i> Cursos y Certificaciones
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Curso 1 -->
+                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg hover:border-emerald-500/50 transition-colors group">
+                        <h3 class="font-bold text-white text-sm mb-2 min-h-[40px] group-hover:text-emerald-400 transition-colors">Fundamentos de la Programación: API y servicios web</h3>
+                        <div class="flex justify-between items-end text-xs border-t border-slate-900 pt-2 mt-2">
+                            <span class="text-slate-400">LinkedIn Learning</span>
+                            <span class="text-emerald-500/80 font-mono">Abril 2025</span>
                         </div>
-                        <p><a class="btn btn-outline-secondary mt-2" href="https://media.licdn.com/dms/image/v2/D4D22AQHLgoBPmQ8DOA/feedshare-shrink_1280/B4DZTrYH08HIAk-/0/1739115757126?e=1746057600&v=beta&t=5nbHAEl6EVSwM1I1RnUpsPcUbqSlBXB920S9IYblWYo" target="_blank">Visualizar certificado</a></p>
                     </div>
-                    <div class="carousel-item text-center">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D22AQE1-_lgvEAftw/feedshare-shrink_1280/B4DZTmpy4_HwAk-/0/1739036503883?e=1746057600&v=beta&t=vzYXFrP4y8yoovPmqW49PzySAJuuY4upIWM-6XxhqR4" class="d-block mx-auto mt-4" height="350">
-                        <h4 class="carrera-puesto mt-2">HTML esencial</h4>
-                        <div class="montserrat-font" style="margin-top: -5px;">
-                            <small>Febrero 2025</small>
+                    <!-- Curso 2 -->
+                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg hover:border-emerald-500/50 transition-colors group">
+                        <h3 class="font-bold text-white text-sm mb-2 min-h-[40px] group-hover:text-emerald-400 transition-colors">React esencial</h3>
+                        <div class="flex justify-between items-end text-xs border-t border-slate-900 pt-2 mt-2">
+                            <span class="text-slate-400">LinkedIn Learning</span>
+                            <span class="text-emerald-500/80 font-mono">Febrero 2025</span>
                         </div>
-                        <p><a class="btn btn-outline-secondary mt-2" href="https://media.licdn.com/dms/image/v2/D4D22AQE1-_lgvEAftw/feedshare-shrink_1280/B4DZTmpy4_HwAk-/0/1739036503883?e=1746057600&v=beta&t=vzYXFrP4y8yoovPmqW49PzySAJuuY4upIWM-6XxhqR4" target="_blank">Visualizar certificado</a></p>
                     </div>
-                    <div class="carousel-item text-center">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D22AQEs-6CtNyosdg/feedshare-shrink_1280/B4DZTl9Rs9HkAo-/0/1739024833602?e=1746057600&v=beta&t=8po9kINpZp7E-QdeoRfccOjP61GKcdya1FKYCYTXRGs" class="d-block mx-auto mt-4" height="350">
-                        <h4 class="carrera-puesto mt-2">Fundamentos del desarrollo web: Full Stack o Front-end</h4>
-                        <div class="montserrat-font" style="margin-top: -5px;">
-                            <small>Febrero 2025</small>
+                    <!-- Curso 3 -->
+                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg hover:border-emerald-500/50 transition-colors group">
+                        <h3 class="font-bold text-white text-sm mb-2 min-h-[40px] group-hover:text-emerald-400 transition-colors">Introducción a la programación con Python</h3>
+                        <div class="flex justify-between items-end text-xs border-t border-slate-900 pt-2 mt-2">
+                            <span class="text-slate-400">Santander Open Academy</span>
+                            <span class="text-emerald-500/80 font-mono">Noviembre 2024</span>
                         </div>
-                        <p><a class="btn btn-outline-secondary mt-2" href="https://media.licdn.com/dms/image/v2/D4D22AQEs-6CtNyosdg/feedshare-shrink_1280/B4DZTl9Rs9HkAo-/0/1739024833602?e=1746057600&v=beta&t=8po9kINpZp7E-QdeoRfccOjP61GKcdya1FKYCYTXRGs" target="_blank">Visualizar certificado</a></p>
                     </div>
-                    <div class="carousel-item text-center">
-                        <img src="assets/1730860544588.jpg" class="d-block mx-auto mt-4" style="background: white;" height="350">
-                        <h4 class="carrera-puesto mt-2">Introducción a la programación con Python</h4>
-                        <div class="montserrat-font" style="margin-top: -5px;">
-                            <small>Noviembre 2024</small>
+                     <!-- Curso 4 -->
+                     <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg hover:border-emerald-500/50 transition-colors group">
+                        <h3 class="font-bold text-white text-sm mb-2 min-h-[40px] group-hover:text-emerald-400 transition-colors">Integración HTML y CSS esencial</h3>
+                        <div class="flex justify-between items-end text-xs border-t border-slate-900 pt-2 mt-2">
+                            <span class="text-slate-400">LinkedIn Learning</span>
+                            <span class="text-emerald-500/80 font-mono">Febrero 2025</span>
                         </div>
-                        <p><a class="btn btn-outline-secondary mt-2" href="https://media.licdn.com/dms/document/media/v2/D4D2DAQEHlrt6bNOWfw/profile-treasury-document-pdf-analyzed/profile-treasury-document-pdf-analyzed/0/1730860544588?e=1740009600&v=beta&t=bWCROYwRu2_wInmP2AYnkImmfwYoJ6ji9dkBrvoEtf8" target="_blank">Visualizar certificado</a></p>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
             </div>
-        </div>
-
-        <!-- Stack tecnológico -->
-        <div >
-            <h3 class="fw-normal shrikhand-regular mt-5 subtitulo">Stack tecnológico</h3>
-            <div class="stack mt-3">
-                    <img src="https://cdn-icons-png.flaticon.com/128/11229/11229136.png" title="C#" class="stack-img">
-                    <img src="https://cdn-icons-png.flaticon.com/128/29/29609.png" title="VB .NET" class="stack-img">
-                    <i class="bi bi-filetype-sql" title="SQL Server"></i>
-                    <i class="fa-brands fa-html5" title="HTML 5"></i>
-                    <i class="fa-brands fa-css3-alt" title="CSS 3"></i>
-                    <i class="fa-brands fa-js" title="Javascript"></i>
-                    <i class="fa-brands fa-bootstrap" title="Bootstrap"></i>
-                    <i class="fa-brands fa-php" title="PHP"></i>
-                    <i class="fa-brands fa-python" title="Python"></i> 
-                    <i class="fa-brands fa-angular" title="Angular"></i>
-            </div>
-        </div>
+        </section>
 
         <!-- Proyectos -->
-        <div >
-            <h3 class="fw-normal shrikhand-regular mt-5 subtitulo">Proyectos</h3>
-            <div class="container proyectos mt-3">
-                <!-- Dos columnas de proyectos -->
-                <div class="row justify-content-center gap-5 align-items-start" style="margin-top: -40px;">
-                    <div class="col-md-5 text-center">
-                        <div class="position-relative">
-                            <!-- Imagen base -->
-                            <img src="./assets/cielo-dia.jpg" class="bd-placeholder-img rounded-circle img-fluid imagen">
-                            <!-- Imagen encima -->
-                            <img src="./assets/logo-alta-en-el-cielo.png" class="imagen-superpuesta logo-1" alt="Alta En El Cielo">
-                        </div>
-                        <!-- <svg class="bd-placeholder-img rounded-circle" width="160" height="160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> -->
-                        <h4 class="carrera-puesto mt-3">Alta en el cielo</h4>
-                        <p>Proyecto para empleados de una aerolinea<br>C# .NET, Windows Forms, Entity Framework, POO, MVC</p>
-                        <p><a class="btn btn-outline-secondary" href="https://github.com/moreescudero/AltaEnElCielo">Ir a proyecto</a></p>
+        <section id="projects" class="py-24 bg-slate-900/20 px-6 relative">
+            <!-- Decoración fondo -->
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
+
+            <div class="container mx-auto max-w-5xl">
+                <div class="mb-12 md:flex justify-between items-end">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Proyectos Destacados</h2>
+                        <p class="text-slate-400">Código que resuelve problemas reales.</p>
                     </div>
-                    <div class="col-md-5 text-center">
-                        <div class="position-relative">
-                            <!-- Imagen base -->
-                            <img src="./assets/pastito.png" class="bd-placeholder-img rounded-circle img-fluid imagen">
-                            <!-- Imagen encima -->
-                            <img src="./assets/1-DE-ESPADA.png" class="imagen-superpuesta logo-2" alt="Sale Un Truquito">
+                    <a href="https://github.com/moreescudero" target="_blank" class="hidden md:flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors text-sm font-medium">
+                        Ver todo en GitHub <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Proyecto 1 -->
+                    <div class="group relative bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden hover:border-violet-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-violet-900/20">
+                        <div class="p-8 relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-slate-900 rounded-lg group-hover:bg-violet-900/20 group-hover:text-violet-400 transition-colors">
+                                    <i data-lucide="code-2" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium text-slate-400 border border-slate-800 rounded-full">Desktop App</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">Alta en el cielo</h3>
+                            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Sistema de gestión para empleados de una aerolínea.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">C# .NET</span>
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">WinForms</span>
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">Entity Framework</span>
+                            </div>
+                            <a href="https://github.com/moreescudero" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-violet-400 transition-colors">
+                                Ver Código <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
                         </div>
-                        <!-- <svg class="bd-placeholder-img rounded-circle" width="160" height="160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg> -->
-                        <h4 class="carrera-puesto mt-3">Sale un truquito</h4>
-                        <p>Simulador de sala del juego "Truco" online <br>C# .NET, Windows Forms, Entity Framework, MVC, SQL Server, Unit Testing</p>
-                        <p><a class="btn btn-outline-secondary" href="https://github.com/moreescudero/SaleUnTruquito">Ir a proyecto</a></p>
+                        <div class="absolute inset-0 bg-gradient-to-br from-violet-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+
+                    <!-- Proyecto 2 -->
+                    <div class="group relative bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden hover:border-violet-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-violet-900/20">
+                        <div class="p-8 relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-slate-900 rounded-lg group-hover:bg-violet-900/20 group-hover:text-violet-400 transition-colors">
+                                    <i data-lucide="gamepad-2" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium text-slate-400 border border-slate-800 rounded-full">Game Simulation</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">Sale un truquito</h3>
+                            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Simulador de sala del juego 'Truco' online con lógica compleja de turnos.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">C# .NET</span>
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">SQL Server</span>
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">MVC</span>
+                            </div>
+                            <a href="https://github.com/moreescudero" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-violet-400 transition-colors">
+                                Ver Código <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-violet-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 border-t border-white/5 bg-slate-950 text-center px-6">
+            <div class="container mx-auto">
+                <div class="flex justify-center gap-8 mb-8">
+                    <a href="https://www.linkedin.com/" target="_blank" class="text-slate-500 hover:text-white transition-colors hover:scale-110 transform"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                    <a href="https://github.com/moreescudero" target="_blank" class="text-slate-500 hover:text-white transition-colors hover:scale-110 transform"><i data-lucide="github" class="w-6 h-6"></i></a>
+                    <a href="mailto:escuderomore1@gmail.com" class="text-slate-500 hover:text-white transition-colors hover:scale-110 transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
+                </div>
+                <p class="text-slate-600 text-sm">Diseñado & Desarrollado por Morena Escudero © <span id="year"></span></p>
+                <div class="mt-4 text-xs text-slate-700 font-mono">Built with HTML + Tailwind CSS + .NET Love</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== MODO TERMINAL (OCULTO POR DEFECTO) ==================== -->
+    <div id="terminal-mode" class="hidden-mode min-h-screen bg-black text-green-500 font-mono p-6 overflow-hidden relative selection:bg-green-900 selection:text-white">
+        <div class="fixed top-4 right-4 z-50">
+            <button onclick="toggleMode()" class="border border-green-500 px-4 py-2 hover:bg-green-900 transition-colors flex items-center gap-2 text-sm uppercase tracking-wider bg-black text-green-500 cursor-pointer">
+                <i data-lucide="monitor" class="w-4 h-4"></i> GUI MODE
+            </button>
+        </div>
+
+        <div class="max-w-4xl mx-auto mt-10 space-y-8 pb-20">
+            <div class="border-b border-green-800 pb-4 mb-8">
+                <h1 class="text-4xl md:text-6xl font-bold mb-2">MORENA_ESCUDERO</h1>
+                <p class="opacity-80">&gt;&gt; Backend Developer | .NET Specialist | SQL Architect</p>
+            </div>
+
+            <div class="space-y-2 mb-12 text-sm opacity-70" id="terminal-output">
+                <p>&gt; Initializing system...</p>
+                <p>&gt; Loading profile: Morena Escudero</p>
+                <p>&gt; Accessing backend skills...</p>
+                <p>&gt; Status: READY</p>
+                <p class="animate-pulse">_</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- JSON Resume -->
+                <div class="border border-green-800 p-4 relative group">
+                    <div class="absolute -top-3 left-4 bg-black px-2 text-green-400 text-xs uppercase">Experience.json</div>
+                    <pre class="text-xs md:text-sm overflow-x-auto whitespace-pre-wrap text-green-400">
+{
+  "company": "Montagne Outdoors S.A.",
+  "role": "Desarrolladora .NET",
+  "stack": [".NET 8.0", "MVC", "SQL Server"],
+  "status": "Active"
+}
+                    </pre>
+                </div>
+                <!-- Skills Array -->
+                <div class="border border-green-800 p-4 relative">
+                     <div class="absolute -top-3 left-4 bg-black px-2 text-green-400 text-xs uppercase">Skills.arr</div>
+                     <div class="grid grid-cols-2 gap-2 mt-2 text-sm" id="terminal-skills">
+                         <!-- Se llenan con JS -->
+                     </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <div class="flex items-center gap-2 text-xl mb-4">
+                    <span class="text-pink-500">root@portfolio:~$</span>
+                    <span>ls ./projects</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-green-300">
+                    <div class="border-l-2 border-green-600 pl-4 py-2 hover:bg-green-900/20 transition-colors">
+                        <h3 class="font-bold">Alta_en_el_cielo.exe</h3>
+                        <p class="text-xs opacity-70">Desktop App // C# .NET</p>
+                    </div>
+                    <div class="border-l-2 border-green-600 pl-4 py-2 hover:bg-green-900/20 transition-colors">
+                        <h3 class="font-bold">Sale_un_truquito.game</h3>
+                        <p class="text-xs opacity-70">Simulation // SQL Server</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Contactos -->
-    <footer>
-        <div class="iconos">
-            <div class="row">
-                <div class="col-sm-4">
-                    <a href="mailto:escuderomore1@gmail.com" target="_blank" class="icono-hover" alt="email"><i class="bi bi-envelope-fill"></i></a>
-                </div>
-                <div class="col-sm-4">
-                    <a href="https://github.com/moreescudero" class="icono-hover" target="_blank" alt="github"><i class="bi bi-github"></i></a>
-                </div>
-                <div class="col-sm-4">
-                    <a href="https://www.linkedin.com/in/morena-escudero-7943ab221/" class="icono-hover" target="_blank" alt="linkedin"><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <!-- Scripts de Lógica -->
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Poner año actual
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Datos de Skills
+        const skills = [
+            { name: ".NET Core / 8.0", icon: "cpu" },
+            { name: "C#", icon: "code-2" },
+            { name: "VB.NET", icon: "layers" },
+            { name: "Python", icon: "terminal" },
+            { name: "C", icon: "code-2" },
+            { name: "SQL Server", icon: "database" },
+            { name: "ASP.NET MVC", icon: "layout-template" },
+            { name: "Entity Framework", icon: "server" },
+            { name: "Clean Architecture", icon: "command" },
+            { name: "SOLID Principles", icon: "file-text" },
+            { name: "JavaScript", icon: "code-2" }
+        ];
+
+        // Renderizar Skills en GUI
+        const skillsContainer = document.getElementById('skills-container');
+        const terminalSkillsContainer = document.getElementById('terminal-skills');
+
+        skills.forEach(skill => {
+            // GUI
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2 px-4 py-2 bg-slate-950 border border-slate-800 rounded-md text-slate-300 hover:border-violet-500/50 hover:text-violet-400 transition-all cursor-default group';
+            div.innerHTML = `<i data-lucide="${skill.icon}" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> <span class="font-medium text-sm">${skill.name}</span>`;
+            skillsContainer.appendChild(div);
+
+            // Terminal
+            const termDiv = document.createElement('div');
+            termDiv.className = 'flex items-center gap-2';
+            termDiv.innerHTML = `<span>[x]</span> ${skill.name}`;
+            terminalSkillsContainer.appendChild(termDiv);
+        });
+
+        // Re-inicializar iconos después de agregar elementos dinámicos
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-slate-950/80', 'backdrop-blur-md', 'border-b', 'border-white/5', 'py-3');
+                nav.classList.remove('py-6', 'bg-transparent');
+            } else {
+                nav.classList.add('py-6', 'bg-transparent');
+                nav.classList.remove('bg-slate-950/80', 'backdrop-blur-md', 'border-b', 'border-white/5', 'py-3');
+            }
+        });
+
+        // Toggle Mode Logic
+        function toggleMode() {
+            const gui = document.getElementById('gui-mode');
+            const terminal = document.getElementById('terminal-mode');
+            
+            if (terminal.classList.contains('hidden-mode')) {
+                // Switch to Terminal
+                terminal.classList.remove('hidden-mode');
+                gui.classList.add('hidden-mode');
+                window.scrollTo(0,0);
+                
+                // Simular log typing
+                const output = document.getElementById('terminal-output');
+                setTimeout(() => {
+                    const p = document.createElement('p');
+                    p.innerText = "> GUI Mode terminated. Welcome to the shell.";
+                    output.insertBefore(p, output.lastElementChild);
+                }, 800);
+            } else {
+                // Switch to GUI
+                gui.classList.remove('hidden-mode');
+                terminal.classList.add('hidden-mode');
+            }
+        }
+    </script>
 </body>
 </html>
