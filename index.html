@@ -147,7 +147,7 @@
                     <a href="https://github.com/moreescudero" target="_blank" rel="noreferrer" class="px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-2">
                         <i data-lucide="github" class="w-5 h-5"></i> GitHub
                     </a>
-                    <a href="./CV- Morena Escudero.pdf" download="CV-Morena-Escudero.pdf" class="px-6 py-3 bg-slate-800 text-white border border-slate-700 font-medium rounded-lg hover:bg-slate-700 hover:border-violet-500 transition-colors flex items-center gap-2">
+                    <a href="./assets/Morena Escudero CV.pdf" download="CV-Morena-Escudero.pdf" class="px-6 py-3 bg-slate-800 text-white border border-slate-700 font-medium rounded-lg hover:bg-slate-700 hover:border-violet-500 transition-colors flex items-center gap-2">
                         <i data-lucide="download" class="w-5 h-5"></i> Descargar CV
                     </a>
                 </div>
@@ -407,7 +407,6 @@
             { name: ".NET Core / 8.0", icon: "cpu" },
             { name: "C#", icon: "code-2" },
             { name: "VB.NET", icon: "layers" },
-            { name: "React", icon: "layout-template" },
             { name: "Python", icon: "terminal" },
             { name: "C", icon: "code-2" },
             { name: "SQL Server", icon: "database" },
@@ -499,9 +498,17 @@
                         setTimeout(toggleMode, 800);
                         break;
                     case 'miau':
-                        writeLine('  /\\_/\\  ', 'text-purple-400');
-                        writeLine(' ( o.o )  < Holi, soy un gatito de terminal!', 'text-purple-400');
-                        writeLine('  > ^ <   ', 'text-purple-400');
+                        // Gatito ASCII Art con whitespace-pre para mantener la alineación exacta
+                        writeLine("　　　　 ／フ   フ", 'text-purple-400 whitespace-pre');
+                        writeLine("　　　　|  .   .|", 'text-purple-400 whitespace-pre');
+                        writeLine("　 　　／`ミ__xノ", 'text-purple-400 whitespace-pre');
+                        writeLine("　 　 /　　 　 |", 'text-purple-400 whitespace-pre');
+                        writeLine("　　 /　 ヽ　　ﾉ", 'text-purple-400 whitespace-pre');
+                        writeLine(" 　 │　　 | | |", 'text-purple-400 whitespace-pre');
+                        writeLine("／￣|　　 | | |", 'text-purple-400 whitespace-pre');
+                        writeLine("| (￣ヽ_ヽ)_)__)", 'text-purple-400 whitespace-pre');
+                        writeLine("＼二つ", 'text-purple-400 whitespace-pre');
+                        writeLine("   < Holi, soy un gatito de terminal! >", 'text-pink-400 mt-2 font-bold whitespace-pre');
                         break;
                     case '':
                         break;
