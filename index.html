@@ -344,6 +344,30 @@
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-br from-violet-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
+
+
+                    <!-- Proyecto 3 (NUEVO) -->
+                    <div class="group relative bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden hover:border-violet-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-violet-900/20">
+                        <div class="p-8 relative z-10">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="p-3 bg-slate-900 rounded-lg group-hover:bg-violet-900/20 group-hover:text-violet-400 transition-colors">
+                                    <i data-lucide="heart" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium text-slate-400 border border-slate-800 rounded-full">Web Game</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">Rompecabezas de Amor</h3>
+                            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Juego de rompecabezas interactivo con temática especial.</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">React</span>
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">Tailwind</span>
+                                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">HTML</span>
+                            </div>
+                            <a href="https://github.com/moreescudero/sorpresa" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-violet-400 transition-colors">
+                                Ver Código <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-violet-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -450,7 +474,7 @@
             'about.txt': 'Backend Developer apasionada por .NET, C# y arquitecturas limpias. Estudiante en UADE y UTN.',
             'skills.json': JSON.stringify(skills.map(s => s.name), null, 2),
             'experience.txt': 'Montagne Outdoors S.A.: Desarrolladora .NET (2023-Presente). Clean Architecture, SQL Server, MVC.',
-            'projects.list': '1. Alta en el cielo (Desktop App) \n2. Sale un truquito (Game Simulation)',
+            'projects.list': '1. Alta en el cielo (Desktop App) \n2. Sale un truquito (Game Simulation) \n3. Rompecabezas de Amor (Web Game)',
             'contact.txt': 'Email: escuderomore1@gmail.com \nGitHub: github.com/moreescudero'
         };
 
@@ -480,6 +504,10 @@
                         Object.keys(fileSystem).forEach(file => {
                             writeLine(`  ${file}`);
                         });
+                        writeLine('Projects (Interactive):', 'text-blue-400 mt-2');
+                        writeLine('  Alta_en_el_cielo.exe');
+                        writeLine('  Sale_un_truquito.game');
+                        writeLine('  Rompecabezas_Amor.web');
                         break;
                     case 'cat':
                         if (arg && fileSystem[arg]) {
